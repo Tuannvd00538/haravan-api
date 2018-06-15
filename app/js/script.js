@@ -1,3 +1,16 @@
+$(document).ready(function () {
+    var shop = window.location.href;
+    var url = new URL(shop);
+    console.log(url.searchParams.get("shop"));
+    if (url.searchParams.get("shop") != null) {
+        $('#shopname').text('Shop: ' + shop);
+    } else {
+        $('#holder').remove();
+        $('#results').attr('style', 'display:block;');
+        $('#results').html('<center><strong>Bạn không có quyền truy cập ứng dụng này</strong></center>');
+    }
+});
+
 var API_IMG = '/_api/image';
 var API_PRODUCT = '/_api/product';
 var API_COLLECTION = '/_api/collections?page=1&limit=10';

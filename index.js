@@ -5,6 +5,8 @@ var app = express();
 const port = 8080;
 const cors = require('cors');
 
+app.use(cors());
+
 app.use(express.static('./app'));
 
 var admin = require("firebase-admin");
@@ -28,6 +30,8 @@ const multer = Multer({
 });
 
 app.post('/_api/image', multer.single('file'), (req, res) => {
+
+	console.log(req.headers.referer);
 
   	console.log('Upload Image');
 
