@@ -1,13 +1,17 @@
+var API_IMG = '/_api/image';
+var API_PRODUCT = '/_api/product';
+var API_COLLECTION = '/_api/collections?page=1&limit=10';
+var API_FIND_COLLECTION = '/_api/collections/find';
+
 function uploadImg(file) {
     var random = Math.random().toString(36).substring(7);
     var randomDel = Math.random().toString(36).substring(7);
     $("#results").prepend(generateBlockAddProduct(random, randomDel));
     console.log("Uploading image ...");
-    var apiUrl = '/_api/image';
     var formData = new FormData();
     formData.append("file", file);
     $.ajax({
-        url: apiUrl,
+        url: API_IMG,
         type: "POST",
         data: formData,
         cache: false,
@@ -34,12 +38,7 @@ $('#holder').on({
             e.stopPropagation();
             if (dataTransfer.files.length <= 20) {
                 $.each(dataTransfer.files, function(i, file) {
-                    if (file.size/1024/1024 > 2) {
-                        swal('Error!', 'Ảnh sản phẩm phải nhỏ hơn 2MB, vui lòng kiểm tra lại!', 'error');
-                    } else {
-                        uploadImg(file);
-                        afterDrop();
-                    }
+                    validateFile(file);
                 });
             } else {
                 swal('Error!', 'Bạn chỉ có thể chọn tối đa 20 hình ảnh!', 'error');
@@ -48,16 +47,20 @@ $('#holder').on({
     }
 });
 
+function validateFile(file) {
+    if (file.size/1024/1024 > 2) {
+        swal('Error!', 'Ảnh sản phẩm phải nhỏ hơn 2MB, vui lòng kiểm tra lại!', 'error');
+    } else {
+        uploadImg(file);
+        afterDrop();
+    }
+}
+
 $("#fileSelect").change(function(e) {
     var file = e.target.files;
     if (file.length <= 20) {
         $.each(file, function(i, file) {
-            if (file.size/1024/1024 > 2) {
-                swal('Error!', 'Ảnh sản phẩm phải nhỏ hơn 2MB, vui lòng kiểm tra lại!', 'error');
-            } else {
-                uploadImg(file);
-                afterDrop();
-            }
+            validateFile(file);
         });
     } else {
         swal('Error!', 'Bạn chỉ có thể chọn tối đa 20 hình ảnh!', 'error');
@@ -74,11 +77,10 @@ function selectImg(id) {
             } else {
                 var randomDel = Math.random().toString(36).substring(7);
                 console.log("Uploading image ...");
-                var apiUrl = '/_api/image';
                 var formData = new FormData();
                 formData.append("file", file);
                 $.ajax({
-                    url: apiUrl,
+                    url: API_IMG,
                     type: "POST",
                     data: formData,
                     cache: false,
@@ -408,20 +410,8 @@ function addMoreVariant(id) {
 }
 
 function removeImg(id) {
-    var value = $('#' + id).find('img.anh').attr('src');
-    var hostname = value.split('https://storage.googleapis.com/');
-    var bucket = hostname[1].split('/');
-    var name = bucket[1];
-    $.ajax({
-        url: '/_api/image?bucket=' + bucket[0] + '&name=' + name,
-        method: 'DELETE',
-        success: function(result) {
-            console.log(result);
-        },
-        error: function(request, msg, error) {
-            console.log(request.responseText);
-        }
-    });
+    var src = $('#' + id).find('img.anh').attr('src');
+    deleteImgFirebase(src);
     $('#' + id).remove();  
 };
 
@@ -590,7 +580,7 @@ function saveProduct(id) {
             }
         }
         $.ajax({
-            url: '/_api/product',
+            url: API_PRODUCT,
             method: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(post_data),
@@ -606,7 +596,7 @@ function saveProduct(id) {
                             }
                         }
                         $.ajax({
-                            url: '/_api/collections?page=1&limit=10',
+                            url: API_COLLECTION,
                             method: 'POST',
                             contentType: 'application/json',
                             data: JSON.stringify(collection_data),
@@ -620,20 +610,8 @@ function saveProduct(id) {
                         });
                     });
                 }
-                images.forEach(function (value) {
-                    var hostname = value.split('https://storage.googleapis.com/');
-                    var bucket = hostname[1].split('/');
-                    var name = bucket[1];
-                    $.ajax({
-                        url: '/_api/image?bucket=' + bucket[0] + '&name=' + name,
-                        method: 'DELETE',
-                        success: function(result) {
-                            console.log(result);
-                        },
-                        error: function(request, msg, error) {
-                            console.log(request.responseText);
-                        }
-                    });
+                images.forEach(function (src) {
+                    deleteImgFirebase(src);
                 });
                 // console.log(result);
             },
@@ -735,7 +713,7 @@ function replaceStr(str) {
 function findCollection(a, id) {
     $('#' + id).find('#resultsCollections').html('<li class="loading"><img src="img/load.gif" height="50px"/></li>');
     $.ajax({
-        url: '/_api/collections/find',
+        url: API_FIND_COLLECTION,
         type: "GET",
         success: function (response) {
             var collection = "";
@@ -766,7 +744,7 @@ function findCollection(a, id) {
 
 function getCollections(id) {
     $.ajax({
-        url: '/_api/collections?page=1&limit=10',
+        url: API_COLLECTION,
         type: "GET",
         success: function (response) {
             var collection = "";
@@ -785,11 +763,11 @@ function getCollections(id) {
 function checkDuplicate(id, cla) {
     var nsp = $('#' + cla).find('.getNsp').map(function () {
         return this.id;
-    });
+    }).get();
     for (var i = 0; i < nsp.length; i++) {
         var idnsp = $('#' + nsp[i]).find('#dataCol').map(function () {
             return $(this).data().id;
-        });
+        }).get();
         for (var j = 0; j < idnsp.length; j++) {
             if (idnsp[j] == id) {
                 $('#' + nsp[i]).remove();
@@ -816,7 +794,29 @@ function removeThis(id) {
     $('#' + id).remove();
 };
 
+function deleteImgFirebase(src) {
+    var hostname = src.split('https://storage.googleapis.com/');
+    var bucket = hostname[1].split('/');
+    var name = bucket[1];
+    $.ajax({
+        url: API_IMG + '?bucket=' + bucket[0] + '&name=' + name,
+        method: 'DELETE',
+        success: function(result) {
+            console.log(result);
+        },
+        error: function(request, msg, error) {
+            console.log(request.responseText);
+        }
+    });
+}
+
 function cancelAddProduct() {
+    var img = $('#results').find('img.anh').map(function () {
+        return this.src;
+    }).get();
+    img.forEach(function (src) {
+        deleteImgFirebase(src);
+    });
     $('#holder').attr('style', 'display:block;');
     $('#results').attr('style', 'display:none;');
     $('#results').html('');
@@ -828,20 +828,8 @@ function addAll() {
 
 function deleteProduct(id, idran) {
     var value = $('#' + id).find('img.anh').map(function() { return this.src; }).get();
-    value.forEach(function (value) {
-        var hostname = value.split('https://storage.googleapis.com/');
-        var bucket = hostname[1].split('/');
-        var name = bucket[1];
-        $.ajax({
-            url: '/_api/image?bucket=' + bucket[0] + '&name=' + name,
-            method: 'DELETE',
-            success: function(result) {
-                console.log(result);
-            },
-            error: function(request, msg, error) {
-                console.log(request.responseText);
-            }
-        });
+    value.forEach(function (src) {
+        deleteImgFirebase(src)
     });
     $(document).find('#' + id).remove();
     $(document).find('.' + id).remove();
