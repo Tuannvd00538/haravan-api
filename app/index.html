@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Haravan App</title>
+	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="icon" href="img/favicon.ico"/>
+</head>
+<body>
+	<div id="holder">
+		<div class="drag-drop-box"><img class="upload-giraffe" src="img/upload-giraffe.png">
+			<img class="upload-pointer" src="img/upload-pointer.png">
+			<div class="icon-upload">
+				<img src="img/dod.png" width="50px"/>
+			</div>
+		</div>
+		<h2>Kéo và Thả hình ảnh vào đây</h2>
+		<p>hoặc</p>
+		<label class="btn btn-primary">Chọn hình ảnh <input id="fileSelect" type="file" style="display: none;" accept="image/*" multiple data-max-size="2000"></label>
+		<br/><br/>
+		<p>(Lưu ý: Bạn chỉ có thể tải lên tối đa 20 sản phẩm trong một lần)</p>
+	</div>
+	<div class="container" id="results">
+		
+	</div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<script src="https://cdn.ckeditor.com/4.8.0/standard-all/ckeditor.js"></script>
+	<script type="text/javascript" src="js/script.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</body>
+</html>

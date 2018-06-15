@@ -3,7 +3,8 @@ var productController = require('../controllers/productController');
 module.exports = function(app){
 	app.route('/_api/product')
 		.post(productController.addProduct)
-		.get(productController.checkInstall, productController.getList);
+		// .get(productController.checkInstall, productController.getList);
+		.get(productController.getList);
 
 	app.route('/_api/product/:id')
 		.get(productController.getDetail)

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "haravan-suplo-app",
+  "private_key_id": "9175eebc5fc7be56b7c61b6664e5ec46ff095ef6",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQClb86VM9HKH5PS\nEpesRuLUjXxnyPZZg2Tz/6sjKX+Hz52uzLb1nbZgEt61noQE4iqxSU3RskqTNgVI\nsjGPgpNguCwShLBIfJU2GzQTLxNHops3aB9lYpk9ae2fIYQrjh0idmWbis17ItIT\n50QPT3TVFtf89c01tQuxBsKTJhST64p8Gh0+eF+aQoHsu+JL+hZ6oPW8MXg2M1mR\n80pOyPt4u2yROeDsgfMH4UFHWvNFgJKosoCK/lxsYtNUYn9dWPhxZP8dhoMS0JZb\ngVx0+s7C2K2ZNwjabo8a/OdKlKIy4H9cK0USO38dUNeLOMT7KrjEB5Bi+Xz8ZijS\n0qMG4wP1AgMBAAECggEAHmZa+PZOetyOGnhhqB3XgTTlkyGtyRmYs7B7t2ig/2kS\ngeQqy5v5PxLAm3GfM1GHBFBizSF8zCvNUUQzULpvEAMP0DBTP2KrPYfGrC7GlW+H\nI6mNuWDipVMhf9AWHDXPWz2T4r7hDttBbLhevIx+fMinlFtro86asSM7nnQNLHf8\nPI5FRhRu5jUmowcXN8q8pPynMeX6C/6z/19F+NufAoYVxeur62T8euU6hEHR3u79\n5yA9Ib6oP2KbvDF9epES5qxgHg7PZYQZzjxOOirFA++ep8R6vrJEma5PmFfwbnH5\nazZRpjsGsqAFCJMH+iy9H59UIXKAIJw4k1gzTpHWoQKBgQDeY5h50vtpXppfSTqI\nSs5iw8uT8lXedbgncCWGU617DVyuOVROZ4mNe+Dd6e/GeewnT7YnrGJpe8VIY8rl\nEEqvF/mH39R4MmzChNQqybdv2r79mg6x2d6LbbTER24D+H6XIltRbi6R3bq/OF2l\nhE+m+5YVey4HWfOhMCnh/Q26YQKBgQC+cK7LCrrRDO0ahRH3lvVDPEbxCX5+Uyn8\nk8VJfeXuEtyu5krAVV2rqYuO5/aXGrxBFcFrwIHwwpXKshGcxruzkB7PXEllyHWS\nHRGYLzLUFFm5XPLVjjvLyq7U6fW5nZlYM5xUoKlXeuPxOpre5os9pqfEQnNJZSeA\nooqulMD6FQKBgQChIe6vjkQlo6sckVV8vR7vBsixiKvZBNiKksJNosGW4CagAd/o\n8zICNpjGkaLu3xZRoXrtIgUoQsq92bh/4h8K4McnQPGUqYyOIGoOGpvzyr4JyB8P\nlDmgMrwAX3UCIYGvhfA+fyP1AoA13uRTchu4dJ/ZLqg6IV3aE6i1GoJg4QKBgG/B\neqHGcykYl8+XRZrw6I8DQXJTqvqA3UPOh9j/272hLgYpOLazoduKDE7ZixjTZKQh\nGzebaeWamwKvCqzg5ueR7LKtKpljULNlAZ04HXDdXGXtyMdPx4FpOL3TahL6DDH5\nX4U+HwIqKLe4N4gU7KNKOGtwv2zTwqG3QQEAZFqdAoGAci09szopsqoxb+QjKobm\npPs0MwqbhrGgcCchvwhVfPxTE1HImHDCJeM8wMs7PZHad6WpzzorR2Fx/1J8ZY/7\nIuDnA5824SDNLcwKzqynPLBqi2IC2we1nVgo723Rj7ZGtN8vcVG9ACGBEw17fLoj\nOcTgrxwgp/SWlK32exIabVw=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-kw5p4@haravan-suplo-app.iam.gserviceaccount.com",
+  "client_id": "106443976166006612854",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-kw5p4%40haravan-suplo-app.iam.gserviceaccount.com"
+}

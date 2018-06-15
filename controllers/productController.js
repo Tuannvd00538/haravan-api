@@ -2,20 +2,20 @@ var Shop = require('../schema/shopSchema');
 
 var haravanAPI = require('haravan-node-api');
 
-// var config = {
-//     shop: 'suplo-fresh.myharavan.com',
-//     haravan_api_key: 'e7bfe3c2844afe761be924d9e196b484',
-//     haravan_shared_secret: '54e8aa4c4f054f526500d3a14e637abc',
-//     access_token: 'lUmHrpGh2yonhTJQe3XX6Sm9gZzWAkHHRxd9sYN6xveb9c_byTwAyTbmT6TAtG0PZvSXPB123WaqZfJfFowG_v__wXb39XZ9iFCkbxGYs9_RvamAUdFDZVZJMd8C2dODwp9UmQ4c292Q3E1cZe20Iz1elGZPhsd2jGvEdAcmCo4nNRxNbCKj9-NFWXbwMr_llDq0NbyF9F5hpVF5CR_0sjPZBgT6HsduZyns1CtVmqPlyJjVIEgJpIxVWr6uquSqePaqeHpTcrJ5XQxvdREPhCP4NGMwIavdmJEKZPWO4BjbtYHzgHsoWudt1tWPLrQYfJm_o27FVczBDOPppb06-z3bnXKZ_KPKUO1JFJ_43iu9T22w9t99SL8Gi-GRGJA9tRKY-ndWbCwboFrNW_4tvJP7fyL7gPlCiXHR_71yoDhjiXmRbmybT02yJWEDlxp3Sv3tR16B-faXAZBKakGNWzOZ5ihC3mct0VLvAnjFyske-_tfD87CjE4sbnx0skyg1Ot1Pw'
-// }
-
 var config = {
     shop: 'suplo-fresh.myharavan.com',
-    haravan_api_key: 'e7bfe3c2844afe761be924d9e196b484',
-    haravan_shared_secret: '54e8aa4c4f054f526500d3a14e637abc',
-    haravan_scope: 'write_products, read_products, read_content',
-    redirect_uri: 'http://localhost:8080/finish_auth'
+    haravan_api_key: 'ab8188420bb6dc2621edef1c7e9f194b',
+    haravan_shared_secret: '276e2cdc2a0d7ae3267fe303ead9ffd5',
+    access_token: 'ITSWdNSpE4UxdqX2URyNznoLN9lxmFFOCHsNaWPkKaL7fcQaEXtjuLHInpWQnGpn-8TUupPyK6FE_wWLgzQVGQ4VFASsYd7x7Mvw9pOUqvIIX3yaA-IcoIwds_YclV97KSz3pkYZqyihiS6Hed2akMyWBKvqjf41CTRW35Fpa49LpuVytDnXN53zFCTvg3Boekw_7C95GRpCjwsWPVRZZHQ3azjAuwHZ9J1UEvZeE-BCIMuzJf06AvH5Rh2LxNyLd9jCT534Kz2cIMCgWT4CEcMoD-bt6Mnq36np44dq0ReM55vyZxVSlJYfYRuNoALRg8_voKHaGQkI4WkdGEq0adtbf52RB07XfW5QcPawbvv3bErlQi3inbsw-au1yZ8CjQnHRuhmxldijK7s32Tgan3e14u_eidwhodc2XiHHv1n3x1e3r3wDe7JvhXmySDDw-RaNB4tWohCH30ExMU4fLsoqPdw30cM27EcPna0frXBaHOGtS1gk4XFt2rj8hhRpJdUo4lSFfMyxk_NkMTkbMfLg1U'
 }
+
+// var config = {
+//     shop: 'suplo-fresh.myharavan.com',
+//     haravan_api_key: 'ab8188420bb6dc2621edef1c7e9f194b',
+//     haravan_shared_secret: '276e2cdc2a0d7ae3267fe303ead9ffd5',
+//     haravan_scope: 'write_products, read_products, read_content',
+//     redirect_uri: 'http://localhost:8080/finish_auth'
+// }
 
 var haravan = new haravanAPI(config);
 
@@ -63,24 +63,25 @@ exports.installApp = function(req, res) {
 exports.finishAuth = function(req, res){
 	var query_params = req.query;
     haravan.exchange_temporary_token(query_params, function(err, data) {
-        var info = {
-            shop: query_params.shop,
-            access_token: data.access_token
-        }
-        Shop.findOneAndUpdate({shop: query_params.shop}, info, {new: true}, function(err, result) {
-            if (result == null) {
-                var shopInfo = new Shop(info);
-                shopInfo.save(function(err){
-                    if(err){
-                        res.send(err);
-                        return;
-                    }
-                    res.send(shopInfo);
-                });
-            } else {
-                res.send(result);
-            }
-        });
+        res.send(data);
+        // var info = {
+        //     shop: query_params.shop,
+        //     access_token: data.access_token
+        // }
+        // Shop.findOneAndUpdate({shop: query_params.shop}, info, {new: true}, function(err, result) {
+        //     if (result == null) {
+        //         var shopInfo = new Shop(info);
+        //         shopInfo.save(function(err){
+        //             if(err){
+        //                 res.send(err);
+        //                 return;
+        //             }
+        //             res.send(shopInfo);
+        //         });
+        //     } else {
+        //         res.send(result);
+        //     }
+        // });
     });
 }
 
